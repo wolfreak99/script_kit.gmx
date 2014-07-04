@@ -79,7 +79,5 @@ switch (argument0) {
     case 179: return "audio play/pause";    // audio play/pause
     case 174: return "volume down";         // volume down
     case 175: return "volume up";           // volume up
-    default:
-    show_message("pressed " + string(argument0) + ", chr: " + chr(argument0));
-    return chr(argument0);
+    default: return chr(argument0);
 }

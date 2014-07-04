@@ -3,11 +3,43 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>
+global.movement_type = movement_basic;
+
+map_editor_enabled = false;
+map_editor_object = obj_wall;
+map_editor_objx = 0;
+map_editor_objy = 0;
+hud_enabled = true;
+
+hud_hover_alpha = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -29,14 +61,19 @@
 about_msg = "GLOBAL DEMO CONTROLS: 
 
 CTRL + R = restart game
+CTRL + M = quick map editor 
 F1 = show this dialog
 F2 = previous room
-F3 = next room";
+F3 = next room
+";
 
 if keyboard_check(vk_control)
-    if (keyboard_check_pressed(ord("R")))
+{
+    if (key_pressed(ord("R")))
         game_restart();
-
+    if (key_pressed(ord("M")))
+        map_editor_enabled = !map_editor_enabled;
+}
 if (key_pressed(vk_f1))
     show_message(about_msg);
     
@@ -47,6 +84,51 @@ if (key_pressed(vk_f2))
 if (key_pressed(vk_f3))
     if room_exists(room + 1)
         room_goto_next();
+        
+
+
+if map_editor_enabled
+{
+    map_editor_objx = (mouse_x div 32) * 32;
+    map_editor_objy = (mouse_y div 32) * 32;
+    
+    object_get_sprite(map_editor_object);
+    if mouse_check_button_pressed(mb_left)
+    {
+        instance_create(map_editor_objx, map_editor_objy, map_editor_object);
+    }
+    else if mouse_check_button_pressed(mb_right)
+    {
+        with (instance_place(map_editor_objx, map_editor_objy, all))
+        {
+            instance_destroy();
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (room == rm_preload)
+room_goto_next();
 </string>
           </argument>
         </arguments>
@@ -92,9 +174,56 @@ if (key_pressed(vk_f3))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-if (room == rm_preload)
+            <string>if (room == rm_preload)
     scr_preloader();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (map_editor_enabled)
+{
+    var mapeditobj_sprite;
+    mapeditobj_sprite = object_get_sprite(map_editor_object);
+    if (mapeditobj_sprite != -1)
+        draw_sprite_ext(mapeditobj_sprite, 0, map_editor_objx, map_editor_objy, 1, 1, 0, c_white, 0.5);
+}
+
+if hud_enabled
+{
+    var str, is_hover, rect_calc, alp;
+    str = string_format2("DEBUG INFO:#%a01: %a02", "Room speed", room_speed);
+    rect_calc = rectangle_calculate(room_width - 8, 8, max(string_width(str), 200), max(string_height(str), 40), 4, 4, fa_right, fa_top);
+    is_hover = in_range_rectangle(mouse_x, mouse_y, rect_calc[0], rect_calc[1], rect_calc[2], rect_calc[3]);
+    hud_hover_alpha = approach(hud_hover_alpha, is_hover, 0.05);
+    
+    draw_set_1(0.2 + (0.3 * hud_hover_alpha), c_black)
+    draw_rectangle(rect_calc[0], rect_calc[1], rect_calc[2], rect_calc[3], false)
+    draw_set_2(fnt_main, 0.7 * hud_hover_alpha, c_black)
+    draw_set_falign(fa_left, fa_top)
+    
+    alp = 0.6 + (0.5 * hud_hover_alpha);
+    draw_text_bordered_alpha(rect_calc[4], rect_calc[5], str, c_black, c_white, alp * 1.5, alp, 0.5);
+
+}
+draw_set_reset();
 </string>
           </argument>
         </arguments>

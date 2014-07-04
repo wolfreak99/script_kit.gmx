@@ -1,6 +1,5 @@
 ///code called for draw
 draw_self();
-draw_set_font(fnt_main);
 
 //These are variables used for the next 3 buttons. There's only one measurement since the button strings are the same length..
 button_width = string_width("button5") + 4;

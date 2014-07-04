@@ -1,4 +1,10 @@
 ///collision_circle_me(offset, obj, prec)
+/***************************************************
+  USEAGE:
+    read collision_rectangle_me for info, and simply transfer the idea to a circle.
+    
+    (MODNOTE: NOT FINISHED)
+***************************************************/
 var _x, _y, img_xoffset, img_yoffset, img_width, img_height;
 img_xoffset = mask_xoffset()
 img_yoffset = mask_yoffset()

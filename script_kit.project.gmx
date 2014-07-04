@@ -16,8 +16,6 @@
       <scripts name="drawing">
         <script>scripts\draw_text_filled.gml</script>
         <script>scripts\rectangle_calculate.gml</script>
-        <script>scripts\btncustom.gml</script>
-        <script>scripts\btncustom_ext.gml</script>
         <scripts name="additional">
           <script>scripts\draw_set_1.gml</script>
           <script>scripts\draw_set_2.gml</script>
@@ -42,6 +40,8 @@
           <script>scripts\color_rgb_modify_current.gml</script>
           <script>scripts\color_rgb_modify_single.gml</script>
           <script>scripts\color_rgb_modify_current_single.gml</script>
+          <script>scripts\draw_set_get.gml</script>
+          <script>scripts\draw_set_restore.gml</script>
         </scripts>
         <script>scripts\string_width_align.gml</script>
         <script>scripts\string_height_align.gml</script>
@@ -85,20 +85,24 @@
         </scripts>
         <scripts name="strings">
           <script>scripts\string_find.gml</script>
-          <script>scripts\string_remove_ext.gml</script>
+          <script>scripts\string_remove.gml</script>
           <script>scripts\string_filter.gml</script>
           <script>scripts\string_replace_ext.gml</script>
           <script>scripts\string_width_wrap.gml</script>
           <script>scripts\string_contains.gml</script>
+          <script>scripts\string_is_number.gml</script>
           <script>scripts\string_contains_which_ext.gml</script>
           <script>scripts\string_contains_which.gml</script>
+          <script>scripts\string_explode.gml</script>
+          <script>scripts\string_explode_ext.gml</script>
+          <script>scripts\string_explode_ext_num.gml</script>
+          <script>scripts\string_format2.gml</script>
         </scripts>
         <scripts name="arrays">
           <script>scripts\array_make.gml</script>
           <script>scripts\array_append.gml</script>
         </scripts>
         <scripts name="conversions">
-          <script>scripts\string_explode.gml</script>
           <script>scripts\string_to_int.gml</script>
           <script>scripts\bool_to_string.gml</script>
           <script>scripts\string_to_bool.gml</script>
@@ -121,6 +125,7 @@
           <scripts name="extra">
             <script>scripts\keymap_set.gml</script>
             <script>scripts\keymap_unset.gml</script>
+            <script>scripts\keymap_unset_all.gml</script>
             <script>scripts\key_down.gml</script>
             <script>scripts\key_pressed.gml</script>
             <script>scripts\key_released.gml</script>
@@ -186,7 +191,7 @@
       </scripts>
       <scripts name="collision">
         <script>scripts\collision_rectangle_me.gml</script>
-        <script>scripts\collision_circle_me.gml</script>
+        <script>scripts\collision_circle_me_UNFINISHED.gml</script>
       </scripts>
       <scripts name="sprites">
         <script>scripts\mask_width.gml</script>
@@ -208,31 +213,47 @@
         <script>scripts\movement_basic.gml</script>
         <script>scripts\movement_platformer.gml</script>
         <script>scripts\stay_in_room.gml</script>
+        <script>scripts\movement_rotation.gml</script>
+        <script>scripts\movement_initialize.gml</script>
+        <script>scripts\movement_collision_solid.gml</script>
+        <script>scripts\movement_collision_nostuck.gml</script>
+      </scripts>
+      <scripts name="menus">
+        <script>scripts\draw_button1_ext.gml</script>
+        <script>scripts\draw_button1.gml</script>
       </scripts>
       <script>scripts\ABOUT.gml</script>
+      <script>scripts\my_msg.gml</script>
       <script>scripts\scrkit_unloader.gml</script>
       <script>scripts\scrkit_preloader.gml</script>
-    </scripts>
-    <scripts name="object_code">
-      <script>scripts\objcode_create.gml</script>
-      <script>scripts\objcode_step.gml</script>
-      <script>scripts\objcode_draw.gml</script>
+      <scripts name="scrkit_linkbacks">
+        <script>scripts\ABOUT_LINKBACKS.gml</script>
+        <script>scripts\btncustom.gml</script>
+        <script>scripts\btncustom_ext.gml</script>
+      </scripts>
     </scripts>
     <script>scripts\scr_preloader.gml</script>
+    <scripts name="execute_help">
+      <script>scripts\return_.gml</script>
+      <script>scripts\script_execute_string.gml</script>
+      <script>scripts\show_message_.gml</script>
+    </scripts>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_main</font>
   </fonts>
   <objects name="objects">
-    <object>objects\obj_test</object>
+    <object>objects\obj_movement_demo</object>
     <object>objects\obj_wall</object>
     <object>objects\cont_game</object>
     <object>objects\obj_menu</object>
+    <object>objects\obj_console</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_preload</room>
-    <room>rooms\rm_test</room>
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_movement_demo</room>
+    <room>rooms\rm_console</room>
   </rooms>
   <constants number="34">
     <constant name="ST_OFF">0</constant>

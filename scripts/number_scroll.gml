@@ -11,7 +11,7 @@
   This script allows you to sum what usually would be a bit of lines
   down to just one line (remember when I said this script kit is for the lazy?)
   
-  It also runs quicker as it uses no if statements, just multiplication. (not sure, never cared to measure speed)
+  It also might run quicker as it uses no if statements, just multiplication, but not sure.
   
   Before:
     if keyboard_check_pressed(vk_down)
