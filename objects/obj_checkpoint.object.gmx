@@ -25,8 +25,18 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Used for keyboard navigation within the button system.
-btn_selected = NULL;
+            <string>//checkpoint init is in the scrkit preloader
+//checkpoint_init();
+
+var iy, ir, count;
+for (iy = 0; iy &lt; 5; iy += 1)
+{
+    count = round(random_range(1, 4));
+    for (ir = 0; ir &lt;= count; ir += 1)
+    {
+        ds_grid_row_add(global.checkpoint_ds, iy, round(random_range(0,10)), round(random_range(0, 10)));
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -49,59 +59,43 @@ btn_selected = NULL;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_font(fnt_main);
-draw_set_3(fnt_main, 0.1, c_green, fa_left, fa_top);
-
-draw_text(8, 8, "Menu");
-draw_text(12, 16, "(reminder: F1 shows global controls)");
-
-//must be called before using draw_button_ext, resets the number used for keyboard navigation..
-btn_int = 0;
-
-//Button x and y coordinates, (width and height are compensated automatically via script)
-button_x = room_width / 2;
-button_y = 50;
-
-//Since all of the buttons are the same string length, I only used one measurement.
-button_width = 400;
-button_height = 40;
-
-if (draw_button1_ext(button_x, button_y, button_width, button_height, "Movement: Basic"))
+            <string>if key_pressed(ord("A"))
 {
-    global.movement_type = movement_basic;
-    room_goto(rm_movement_demo);
+    var rm, _x, _y;
+    rm = get_integer_custom("room", 0, 0);
+    _x = get_integer_custom("x", 0, 0);
+    _y = get_integer_custom("y", 0, 0);
+    checkpoint_add(rm,_x,_y);
 }
-button_y += 50;
-
-//If the string width/height exceeds the provided width/height, the string width/height is used.
-if (draw_button1_ext(button_x, button_y, button_width, button_height, "Movement: Rotation"))
+if key_pressed(ord("C"))
 {
-    global.movement_type = movement_rotation;
-    room_goto(rm_movement_demo);
+    var r, _x, _y;
+    r = get_integer_custom("row", 0, 0);
+    checkpoint_clear_room(r);
 }
-button_y += 50;
-
-if (draw_button1_ext(button_x, button_y, button_width, button_height, "Movement: Platformer (broke)"))
+if key_pressed(ord("G"))
 {
-    global.movement_type = movement_platformer;
-    room_goto(rm_movement_demo);
-}
-button_y += 50;
-
-if (draw_button1_ext(button_x, button_y, button_width, button_height, "Mechanic: Checkpoint (text only display)"))
-{
-    room_goto(rm_checkpoint);
-}
-button_y += 50;
-
-
-if (draw_button1_ext(button_x, button_y, button_width, button_height, "Console (ALPHA)#(MAYBE LIKELY PROBABLY REALLY BROKEN)"))
-{
-    room_goto(rm_console);
+    var r, this;
+    r = get_integer_custom("room", 0, 0);
+    this = checkpoint_get(r);
+    show_message(string_format2("RETRIEVED: %a01 , %a02", this[0], this[1]));
 }
 
-//This handles navigation within one line, check the "number_scroll" file for how it works.
-btn_selected = number_scroll(btn_selected, 1, btn_int, key_pressed(vk_down), key_pressed(vk_up))
+if key_pressed(ord("R"))
+    game_restart();
+
+var ds_w, ds_h, s;
+ds_w = ds_grid_width(global.checkpoint_ds);
+ds_h = ds_grid_height(global.checkpoint_ds);
+draw_set_font(0);
+s = 32;
+for (iy = 0; iy &lt; ds_h; iy += 1)
+{
+    for (ix = 0; ix &lt; ds_w; ix += 1)
+    {
+        draw_text(ix * s, iy * s, string(ds_grid_get(global.checkpoint_ds, ix, iy)))
+    }
+}
 </string>
           </argument>
         </arguments>

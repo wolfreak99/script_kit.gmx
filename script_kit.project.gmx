@@ -97,6 +97,7 @@
           <script>scripts\string_explode_ext.gml</script>
           <script>scripts\string_explode_ext_num.gml</script>
           <script>scripts\string_format2.gml</script>
+          <script>scripts\script178.gml</script>
         </scripts>
         <scripts name="arrays">
           <script>scripts\array_make.gml</script>
@@ -106,6 +107,8 @@
           <script>scripts\string_to_int.gml</script>
           <script>scripts\bool_to_string.gml</script>
           <script>scripts\string_to_bool.gml</script>
+          <script>scripts\bool_select.gml</script>
+          <script>scripts\bool_to_sign.gml</script>
         </scripts>
       </scripts>
       <scripts name="objects_and_instances">
@@ -153,6 +156,9 @@
         <script>scripts\multi_if.gml</script>
         <script>scripts\switch_room.gml</script>
         <script>scripts\realtime_fps.gml</script>
+        <script>scripts\get_integer_custom.gml</script>
+        <script>scripts\room_goto_next_safe.gml</script>
+        <script>scripts\room_goto_previous_safe.gml</script>
       </scripts>
       <scripts name="datasets">
         <script>scripts\ds_get_type.gml</script>
@@ -186,12 +192,20 @@
           <script>scripts\ds_grid_queue_dequeue.gml</script>
           <script>scripts\ds_grid_queue_head.gml</script>
           <script>scripts\ds_grid_queue_tail.gml</script>
+          <script>scripts\ds_grid_row_add.gml</script>
+          <script>scripts\ds_grid_row_set.gml</script>
+          <script>scripts\ds_grid_row_insert.gml</script>
+          <script>scripts\ds_grid_row_delete.gml</script>
+          <script>scripts\ds_grid_range_shift.gml</script>
+          <script>scripts\ds_grid_find_range.gml</script>
         </scripts>
         <script>scripts\ds_map_find_key.gml</script>
       </scripts>
       <scripts name="collision">
         <script>scripts\collision_rectangle_me.gml</script>
         <script>scripts\collision_circle_me_UNFINISHED.gml</script>
+        <script>scripts\place_meeting_around.gml</script>
+        <script>scripts\place_meeting_around_corners.gml</script>
       </scripts>
       <scripts name="sprites">
         <script>scripts\mask_width.gml</script>
@@ -223,7 +237,6 @@
         <script>scripts\draw_button1.gml</script>
       </scripts>
       <script>scripts\ABOUT.gml</script>
-      <script>scripts\my_msg.gml</script>
       <script>scripts\scrkit_unloader.gml</script>
       <script>scripts\scrkit_preloader.gml</script>
       <scripts name="scrkit_linkbacks">
@@ -231,12 +244,23 @@
         <script>scripts\btncustom.gml</script>
         <script>scripts\btncustom_ext.gml</script>
       </scripts>
+      <scripts name="game_mechanics">
+        <scripts name="checkpoint">
+          <script>scripts\checkpoint_init.gml</script>
+          <script>scripts\checkpoint_uninit.gml</script>
+          <script>scripts\checkpoint_add.gml</script>
+          <script>scripts\checkpoint_get.gml</script>
+          <script>scripts\checkpoint_clear_room.gml</script>
+          <script>scripts\checkpoint_lastrange.gml</script>
+        </scripts>
+      </scripts>
     </scripts>
     <script>scripts\scr_preloader.gml</script>
     <scripts name="execute_help">
       <script>scripts\return_.gml</script>
       <script>scripts\script_execute_string.gml</script>
       <script>scripts\show_message_.gml</script>
+      <script>scripts\my_msg.gml</script>
     </scripts>
   </scripts>
   <fonts name="fonts">
@@ -247,6 +271,7 @@
     <object>objects\obj_wall</object>
     <object>objects\cont_game</object>
     <object>objects\obj_menu</object>
+    <object>objects\obj_checkpoint</object>
     <object>objects\obj_console</object>
   </objects>
   <rooms name="rooms">
@@ -254,6 +279,7 @@
     <room>rooms\rm_menu</room>
     <room>rooms\rm_movement_demo</room>
     <room>rooms\rm_console</room>
+    <room>rooms\rm_checkpoint</room>
   </rooms>
   <constants number="34">
     <constant name="ST_OFF">0</constant>

@@ -15,20 +15,13 @@
     string_format2("Hello %a01! How was your %a02 going?", "Sarah", "evening") == "Hello Sarah! How is your evening going?"
     string_format2("Hello %a01! How was your %a02 going?", "Amanda", "penis") == "Hello Sarah! How is your penis going?"
  ***************************************************/
-var i, str, argchar, reach;
+var i, str, istr;
 i = 0;
 str = string_replace_all(argument[0], "%nl", "#");
+for (i = 1; i < argument_count; i += 1)
+{
+    istr = string_replace_all(string_format(i, 2, 0), " ", "0"); //Helps in making i double digits.
+    str = string_replace_all(str, "%a" + istr, string(argument[i]));
+}
 
-reach = min(argument_count, 9) //cache before entering for..
-for (i = 0; i < reach; i += 1)
-{
-    str = string_replace_all(str, "%a0" + string(i), string(argument[i]));
-}
-if argument_count > 9
-{
-    for (i = 10; i < argument_count; i += 1)
-    {
-        str = string_replace_all(str, "%a" + string(i), string(argument[i]));
-    }
-}
 return str;

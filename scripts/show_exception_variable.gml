@@ -1,18 +1,33 @@
-///show_exception_variable(pre_description, variable, post_description*, asset_name*, abort)
-var _pre_descr, _var, _post_descr, _name, _abort;
-_pre_descr = string(argument[0])
-_var = string(argument[1])
-_name = object_get_name(object_index)
-if (argument_count > 4) //if post description was provided
+///show_exception_variable(pre_description,variable,post_description**,asset_name*,abort)
+/***************************************************
+  USEAGE:
+    runs show_exception with the form of "pre_descr: variable; post_descr".
+    read show_exception for more info.
+
+***************************************************/
+var pre_descr, _var, post_descr, name, abort, temp;
+
+pre_descr = string(argument[0]);
+_var = string(argument[1]);
+
+post_descr = "";
+name = "";
+abort = false;
+
+switch (argument_count)
 {
-    _post_descr = ";" + string(argument[2])
-    _name = string_format_assets(argument[3])
-    _abort = argument[4]
+    case 5:
+        post_descr = "; " + string(argument[2]);
+        name = string(argument[3]);
+        abort = argument[4];
+        break;
+    case 4:
+        name = string(argument[3]);
+        abort = argument[3];
+        break;
+    case 3:
+        abort = argument[2];
+        break;
 }
-else
-{
-    _post_descr = ";"
-    _name = string_format_assets(argument[2])
-    _abort = argument[3]
-}
-show_error(make_error_text(_pre_descr + ": " + _var + _post_descr + " (" + _name + ")"), _abort)
+
+show_exception(pre_descr + ": " + _var + post_descr, name, abort);
